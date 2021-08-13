@@ -35,9 +35,9 @@ for (let i = 0; i < selectProduct.length; i++) {
 
 
 // ********************** Revoir Trash **************************
-function  removeProduct() {
-localStorage.removeItem('validProduct');
-}
+// function  removeProduct() {
+// localStorage.removeItem('validProduct');
+// }
 // ********************** Revoir Trash **************************
 
 
@@ -49,127 +49,121 @@ totalOrder.innerHTML = `Le total de votre commande est de <strong>${total} €</
 <br> Voici les articles que vous avez séléctionnez : 
 `;
 
+const form = document.getElementById('formOrder');
 
-// ********************** revoir requète **************************
-const getValue = () => {
-    const form = document.getElementById('formOrder');
+form.firstName.addEventListener('change', function() {
+    validFirstName(this);
+});
+form.lastName.addEventListener('change', function() {
+    validLastName(this);
+});
+form.email.addEventListener('change', function() {
+    validEmail(this);
+});
+form.adress.addEventListener('change', function() {
+    validAdress(this);
+});
+form.city.addEventListener('change', function() {
+    validCity(this);
+});
 
-    form.firstName.addEventListener('change', function() {
-        validFirstName(this);
-    });
-    form.lastName.addEventListener('change', function() {
-        validLastName(this);
-    });
-    form.email.addEventListener('change', function() {
-        validEmail(this);
-    });
-    form.adress.addEventListener('change', function() {
-        validAdress(this);
-    });
-    form.city.addEventListener('change', function() {
-        validCity(this);
-    });
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validFirstName(form.firstName) && validLastName(form.lastName) && validEmail(form.email) && validAdress(form.adress) && validCity(form.city)) {
-            form.submit();
-        }
-    });
-
-    const validFirstName = function(firstName) {
-        let smallFirstName = document.getElementById('smallFirstName');
-        let formRegExp = new RegExp(
-            '^[a-zA-Z-]{2,20}$', 'g'
-        );
-
-        if (formRegExp.test(firstName.value)) {
-            smallFirstName.innerHTML = 'Nom valide';
-            smallFirstName.style.color = 'green';
-            console.log('ca passe');
-            return true;
-        } else {
-            smallFirstName.innerHTML = 'Nom non valide, seulement les lettres sont autorisées';
-            smallFirstName.style.color = 'red';
-            console.log('ca passe PAS');
-            return false;
-        }
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (validFirstName(form.firstName) && validLastName(form.lastName) && validEmail(form.email) && validAdress(form.adress) && validCity(form.city)) {
+        sendOrder();
     }
-    const validLastName = function(lastName) {
-        let smallLastName = document.getElementById('smallLastName');
-        let formRegExp = new RegExp(
-            '^[a-zA-Z-]{2,20}$', 'g'
-        );
+});
 
-        if (formRegExp.test(lastName.value)) {;
-            smallLastName.innerHTML = 'Prénom valide';
-            smallLastName.style.color = 'green';
-            console.log('ca passe');
-            return true;
-        } else {
-            smallLastName.innerHTML = 'Prénom non valide, seulement les lettres sont autorisées';
-            smallLastName.style.color = 'red';
-            console.log('ca passe PAS');
-            return false;
-        }
-    }
-    const validEmail = function(email) {
-        let smallEmail = document.getElementById('smallEmail');
-        let formRegExp = new RegExp(
-            '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
-        );
+const validFirstName = function(firstName) {
+    let smallFirstName = document.getElementById('smallFirstName');
+    let formRegExp = new RegExp(
+        '^[a-zA-Z-]{2,20}$', 'g'
+    );
 
-        if (formRegExp.test(email.value)) {;
-            smallEmail.innerHTML = 'Email valide';
-            smallEmail.style.color = 'green';
-            console.log('ca passe');
-            return true;
-        } else {
-            smallEmail.innerHTML = 'Email non valide, veuillez indiquer une adress email valide';
-            smallEmail.style.color = 'red';
-            console.log('ca passe PAS');
-            return false;
-        }
+    if (formRegExp.test(firstName.value)) {
+        smallFirstName.innerHTML = 'Nom valide';
+        smallFirstName.style.color = 'green';
+        console.log('ca passe');
+        return true;
+    } else {
+        smallFirstName.innerHTML = 'Nom non valide, seulement les lettres sont autorisées';
+        smallFirstName.style.color = 'red';
+        console.log('ca passe PAS');
+        return false;
     }
-    const validAdress = function(adress) {
-        let smallAdress = document.getElementById('smallAdress');
-        let formRegExp = new RegExp(
-            '^[a-zA-Z0-9À-ÿ ]{2,100}$', 'g'
-        );
+}
+const validLastName = function(lastName) {
+    let smallLastName = document.getElementById('smallLastName');
+    let formRegExp = new RegExp(
+        '^[a-zA-Z-]{2,20}$', 'g'
+    );
 
-        if (formRegExp.test(adress.value)) {;
-            smallAdress.innerHTML = 'Adress valide';
-            smallAdress.style.color = 'green';
-            console.log('ca passe');
-            return true;
-        } else {
-            smallAdress.innerHTML = 'Adress non valide, veuillez saissir une adress postal valide';
-            smallAdress.style.color = 'red';
-            console.log('ca passe PAS');
-            return false;
-        }
+    if (formRegExp.test(lastName.value)) {;
+        smallLastName.innerHTML = 'Prénom valide';
+        smallLastName.style.color = 'green';
+        console.log('ca passe');
+        return true;
+    } else {
+        smallLastName.innerHTML = 'Prénom non valide, seulement les lettres sont autorisées';
+        smallLastName.style.color = 'red';
+        console.log('ca passe PAS');
+        return false;
     }
-    const validCity = function(city) {
-        let smallCity = document.getElementById('smallCity');
-        let formRegExp = new RegExp(
-            '^[a-zA-Z]{2,20}$', 'g'
-        );
+}
+const validEmail = function(email) {
+    let smallEmail = document.getElementById('smallEmail');
+    let formRegExp = new RegExp(
+        '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
+    );
 
-        if (formRegExp.test(city.value)) {;
-            smallCity.innerHTML = 'Ville valide';
-            smallCity.style.color = 'green';
-            console.log('ca passe');
-            return true;
-        } else {
-            smallCity.innerHTML = 'Ville non valide, seulement les lettres sont autorisées';
-            smallCity.style.color = 'red';
-            console.log('ca passe PAS');
-            return false;
-        }
+    if (formRegExp.test(email.value)) {;
+        smallEmail.innerHTML = 'Email valide';
+        smallEmail.style.color = 'green';
+        console.log('ca passe');
+        return true;
+    } else {
+        smallEmail.innerHTML = 'Email non valide, veuillez indiquer une adress email valide';
+        smallEmail.style.color = 'red';
+        console.log('ca passe PAS');
+        return false;
     }
-    sendOrder();
-};
-// ********************** revoir la requète**************************
+}
+const validAdress = function(adress) {
+    let smallAdress = document.getElementById('smallAdress');
+    let formRegExp = new RegExp(
+        '^[a-zA-Z0-9À-ÿ ]{2,100}$', 'g'
+    );
+
+    if (formRegExp.test(adress.value)) {;
+        smallAdress.innerHTML = 'Adress valide';
+        smallAdress.style.color = 'green';
+        console.log('ca passe');
+        return true;
+    } else {
+        smallAdress.innerHTML = 'Adress non valide, veuillez saissir une adress postal valide';
+        smallAdress.style.color = 'red';
+        console.log('ca passe PAS');
+        return false;
+    }
+}
+const validCity = function(city) {
+    let smallCity = document.getElementById('smallCity');
+    let formRegExp = new RegExp(
+        '^[a-zA-Z]{2,20}$', 'g'
+    );
+
+    if (formRegExp.test(city.value)) {;
+        smallCity.innerHTML = 'Ville valide';
+        smallCity.style.color = 'green';
+        console.log('ca passe');
+        return true;
+    } else {
+        smallCity.innerHTML = 'Ville non valide, seulement les lettres sont autorisées';
+        smallCity.style.color = 'red';
+        console.log('ca passe PAS');
+        return false;
+    }
+}
 
 // ********************** revoir objet de la requète **************************
 const getContactValue = () => {
@@ -177,7 +171,7 @@ const getContactValue = () => {
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
         email: document.getElementById('email').value,
-        adress: document.getElementById('adress').value,
+        address: document.getElementById('adress').value,
         city: document.getElementById('city').value,
     };
     return contact;
@@ -189,13 +183,13 @@ const getProductsId = () => {
         };
     return products;
 }
-// ********************** revoir objet de la requète **************************
+
 
 function sendOrder() {
-    const creatOrder = (contact, products) => {
+    const creatOrder = () => {
         const req = {
-            "contact": getContactValue(contact),
-            "products": getProductsId(products),
+            "contact": getContactValue(),
+            "products": getProductsId(),
         }
         console.log(req)
         fetch('http://localhost:3000/api/cameras/order', {
@@ -211,7 +205,9 @@ function sendOrder() {
             if (response.ok) {
                 console.log(response.ok);
                 console.log(data.orderId);
-                // localStorage.setItem('dataId', data.orderId);
+                localStorage.setItem("contactAfterSendingOrder", JSON.stringify(req.contact));
+                localStorage.setItem('dataId', data.orderId);
+                document.location.href="http://127.0.0.1:5501/orinoco/front-end/order-confirm.html"
             } else {
                 console.log(response.ok);
                 console.log(data.orderId);
