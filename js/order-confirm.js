@@ -2,9 +2,9 @@ let getLocStor = JSON.parse(localStorage.getItem("contactAfterSendingOrder"));
 
 let sectionConfirm = document.getElementById('sectionConfirm');
 let thanks = document.createElement('div');
-let id = document.createElement('div');
+let id = document.createElement('h2');
 id.innerHTML= localStorage.getItem("dataId");
-thanks.innerHTML = `Merci Mme, Mr ${getLocStor.lastName}, ${getLocStor.firstName} pour votre commande.<br> Voici le numéro de commande qui vous sera utile pour toute réclamation au prêt de notre service clients.`;
+thanks.innerHTML = `${getLocStor.firstName} ${getLocStor.lastName} <br> Nous vous remercierons pour votre commande.<br> Voici le numéro de celle ci, il vous sera utile pour toute réclamation au prêt de notre service clients.`;
 
 
 
