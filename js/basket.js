@@ -2,6 +2,14 @@ let selectProduct = JSON.parse(localStorage.getItem('validProduct'));
 let total = 0;
 
 // **********************if else panier vide**************************
+if (selectProduct == null ){
+    let vaccumBasket = document.createElement('h2');
+    vaccumBasket.style = "display: inline-block;";
+    document.body.appendChild(vaccumBasket);
+    (product).appendChild(vaccumBasket)
+    vaccumBasket.innerHTML = 'Le panier est vide';
+
+}
 
 // **********************if else panier vide**************************
 
@@ -15,12 +23,12 @@ for (let i = 0; i < selectProduct.length; i++) {
     let img = document.createElement('img');
     let articleName = document.createElement('h2');
     let price = document.createElement('h3');
-    let removeProduct = document.createElement('div')
+    let removeProduct = document.createElement('button')
 
     img.src = selectProduct[i].img;
     articleName.innerHTML = selectProduct[i].name;
     price.innerHTML = `${selectProduct[i].price / 100} €`;
-    removeProduct.innerHTML = '<button onclick="removeProduct()"><i class="fas fa-trash-alt"></i></button>';
+    removeProduct.innerHTML = '<i class="fas fa-trash-alt"></i>';
     removeProduct.className = 'trash';
 
     retunProduct.appendChild(divContent);
@@ -31,13 +39,20 @@ for (let i = 0; i < selectProduct.length; i++) {
     product.appendChild(retunProduct);
 
     total += selectProduct[i].price / 100;
+
+    if (selectProduct ==null ){
+        vaccumBasket = document.createElement('h2'),
+        vaccumBasket.style = "display: inline-block;";
+        document.body.appendChild(vaccumBasket);
+        (price).appendChild(vaccumBasket)
+        vaccumBasket.innerHTML = 'Le panier est vide';
+    
+    }
 }
 
 
 // ********************** Revoir Trash **************************
-// function  removeProduct() {
-// localStorage.removeItem('validProduct');
-// }
+
 // ********************** Revoir Trash **************************
 
 
@@ -83,12 +98,10 @@ const validFirstName = function(firstName) {
     if (formRegExp.test(firstName.value)) {
         smallFirstName.innerHTML = 'Nom valide';
         smallFirstName.style.color = 'green';
-        console.log('ca passe');
         return true;
     } else {
         smallFirstName.innerHTML = 'Nom non valide, seulement les lettres sont autorisées';
         smallFirstName.style.color = 'red';
-        console.log('ca passe PAS');
         return false;
     }
 }
@@ -101,12 +114,10 @@ const validLastName = function(lastName) {
     if (formRegExp.test(lastName.value)) {;
         smallLastName.innerHTML = 'Prénom valide';
         smallLastName.style.color = 'green';
-        console.log('ca passe');
         return true;
     } else {
         smallLastName.innerHTML = 'Prénom non valide, seulement les lettres sont autorisées';
         smallLastName.style.color = 'red';
-        console.log('ca passe PAS');
         return false;
     }
 }
@@ -119,12 +130,10 @@ const validEmail = function(email) {
     if (formRegExp.test(email.value)) {;
         smallEmail.innerHTML = 'Email valide';
         smallEmail.style.color = 'green';
-        console.log('ca passe');
         return true;
     } else {
         smallEmail.innerHTML = 'Email non valide, veuillez indiquer une adress email valide';
         smallEmail.style.color = 'red';
-        console.log('ca passe PAS');
         return false;
     }
 }
@@ -137,12 +146,10 @@ const validAdress = function(adress) {
     if (formRegExp.test(adress.value)) {;
         smallAdress.innerHTML = 'Adress valide';
         smallAdress.style.color = 'green';
-        console.log('ca passe');
         return true;
     } else {
         smallAdress.innerHTML = 'Adress non valide, veuillez saissir une adress postal valide';
         smallAdress.style.color = 'red';
-        console.log('ca passe PAS');
         return false;
     }
 }
@@ -160,7 +167,6 @@ const validCity = function(city) {
     } else {
         smallCity.innerHTML = 'Ville non valide, seulement les lettres sont autorisées';
         smallCity.style.color = 'red';
-        console.log('ca passe PAS');
         return false;
     }
 }
@@ -200,18 +206,12 @@ function sendOrder() {
             },
         }).then(async(response) => {
             const data = await response.json()
-            console.log('data', data)
-            console.log('response', response)
             if (response.ok) {
-                console.log(response.ok);
-                console.log(data.orderId);
                 localStorage.setItem("contactAfterSendingOrder", JSON.stringify(req.contact));
                 localStorage.setItem('dataId', data.orderId);
                 document.location.href="http://127.0.0.1:5501/orinoco/front-end/order-confirm.html"
             } else {
                 console.log(response.ok);
-                console.log(data.orderId);
-                console.log('t\'a merdé !!');
             }
         })
     };

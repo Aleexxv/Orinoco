@@ -170,7 +170,7 @@ ul li {
 }
 
 input {
-  width: 100%;
+  width: 95%;
   margin-top: 0.5rem;
   padding: 0.4rem;
 }
@@ -203,7 +203,7 @@ button {
   flex-wrap: wrap;
 }
 .section__full__articles figure {
-  width: 18rem;
+  width: 16rem;
   margin: 2rem;
   background: white;
 }
@@ -334,18 +334,6 @@ button {
 
 .page__section__confirm {
   margin: 1rem;
-}
-
-.section__confirm p {
-  padding-bottom: 1.5rem;
-}
-
-.section__recap {
-  text-align: center;
-  padding: 1rem;
-}
-.section__recap p {
-  margin: 0 auto;
 }
 
 /*# sourceMappingURL=style.css.map */
