@@ -1,0 +1,94 @@
+@media (max-width: 1024px) {
+    .tab__mobile__version {
+        flex-direction: column;
+    }
+    .tab__mobile__version__form {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (max-width: 732px) {
+    .section__full__article figure {
+        width: 100% !important;
+    }
+    .section__confirm {
+        flex-direction: column !important;
+    }
+    .section__full__articles {
+        margin: 0 !important;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 612px) {
+    .slider {
+        img {
+            height: 280px;
+        }
+    }
+    .slider__title {
+        bottom: 13rem !important;
+    }
+    .section__full__article {
+        margin-top: 4rem !important;
+    }
+
+    .first__nav__item {
+        flex-direction: column-reverse !important;
+        text-align: end;
+        li {
+            padding-bottom: .5rem !important
+        }
+    }
+}
+
+@media (max-width: 492px) {
+    .background__wheat {
+        margin: 1rem !important;
+    }
+    .slider__title {
+        font-size: 1.7rem !important;
+        bottom: 12rem !important;
+        padding:.5rem !important;
+    }
+    .logo {
+        top: .5rem !important;
+        left: .5rem !important;
+        img {
+            height: 80px !important;
+            width: 180px !important
+        }
+    }
+    .section__full__article {
+        margin: 2rem 0 2rem 0 !important;
+    }
+    .section__page__articles {
+        // margin: 1rem 1rem 2rem 1rem!important;
+        padding: 1rem !important;
+    }
+
+    ul li {
+        padding: 0 .5rem !important;
+    }
+    .footer__social__media {
+        padding-left: 0 !important;
+    }
+    .position__price {
+        position: initial;
+        padding: 1rem 0;
+        margin: 2rem !important;
+    }
+    .position__article__btn {
+        position: initial !important;
+        padding: 1rem 0 !important;
+    }
+    .price {
+        padding: 5rem 0 !important;
+    }
+    .price__basket {
+        padding: 1.5rem 0 !important;
+    }
+    .page__section__confirm {
+        padding-bottom: 2rem;
+    }
+}

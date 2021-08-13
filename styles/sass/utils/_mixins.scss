@@ -1,0 +1,31 @@
+@mixin primary__btn {
+    padding: .5rem 1.5rem;
+    border-radius: 2rem;
+    background: $background_wheat;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    border: 0;
+}
+
+@mixin position__btn {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 25%;
+}
+
+@mixin position__article__btn {
+    @extend %flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 3rem;
+    padding: 3.5rem 0;
+}
+
+@mixin price {
+    padding: 3rem 0;
+    font-size: 2rem;
+    font-family: 'Finger Paint', cursive;
+    position: absolute;
+    bottom: 0;
+}
