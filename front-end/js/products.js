@@ -17,57 +17,66 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             divImg.id = 'divImg';
             divImg.className = 'section__page__articles divImg width40';
             document.body.appendChild(divImg);
-            document.getElementById('products').appendChild(document.getElementById('divImg'));
+            document.getElementById('products').appendChild(divImg);
 
             let img = document.createElement('img');
             img.id = "img";
             img.src = insertProduct.imageUrl;
-
-            document.body.appendChild(img);
-            document.getElementById('divImg').appendChild(document.getElementById('img'));
+            document.getElementById('divImg').appendChild(img);
 
             let divContent = document.createElement('div');
             divContent.id = 'divContent';
             divContent.className = 'section__page__articles divContent';
-            document.body.appendChild(divContent);
-            document.getElementById('products').appendChild(document.getElementById('divContent'));
+            document.getElementById('products').appendChild(divContent);
 
             let name = document.createElement('h2');
             name.id = "name";
             name.innerHTML = nameProd;
-            document.body.appendChild(name);
-            document.getElementById('divContent').appendChild(document.getElementById('name'));
+            document.getElementById('divContent').appendChild(name);
 
             let desc = document.createElement('p');
             desc.id = "desc";
             desc.innerHTML = descProd;
-            document.body.appendChild(desc);
-            document.getElementById('divContent').appendChild(document.getElementById('desc'));
+            document.getElementById('divContent').appendChild(desc);
 
-
-            let select = document.createElement('select');
-            select.id = "select";
+            let selectLense = document.createElement('select');
+            selectLense.id = "selectLense";
             for (let i = 0; i < lensesProd.length; i++) {
                 const option = document.createElement('option');
                 option.id = "option";
                 option.innerHTML = lensesProd[i];
-                document.body.appendChild(select).appendChild(option);
-                document.getElementById('divContent').appendChild(document.getElementById('select')).appendChild(document.getElementById('option'));
+                document.getElementById('divContent').appendChild(selectLense).appendChild(option);
             }
+            let lenseProd = document.querySelector('select');
+            lenseProd.addEventListener('change', function () {
+                lenseSelect = this.value;
+            })
+            
+            let selectQant = document.createElement('select');
+            selectQant.id = "selectQant";
+            for (let i = 0; i < 6; i++) {
+                const option = document.createElement('option');
+                option.id = "option";
+                option.value = [i];
+                option.innerHTML = [i];
+                document.getElementById('divContent').appendChild(selectQant).appendChild(option);
+            }
+            let quantProd = document.getElementById('selectQant');
+            quantProd.addEventListener('change', function () {
+                quantSelect = this.value;
+            })
 
             let price = document.createElement('h3');
             price.id = "price";
             price.innerHTML = `${priceProd / 100} €`;
-            document.body.appendChild(price);
-            document.getElementById('divContent').appendChild(document.getElementById('price'));
+            document.getElementById('divContent').appendChild(price);
 
             const button = document.createElement('a');
             button.id = "button";
             button.className = "primary__btn";
             button.textContent = "Ajouter au panier";
             button.type = "submit";
-            document.body.appendChild(button);
-            document.getElementById('divContent').appendChild(document.getElementById('button'));
+            document.getElementById('divContent').appendChild(button);
 
             const btnSubmitClick = document.querySelector("#button");
             btnSubmitClick.addEventListener("click", () => {
@@ -76,6 +85,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
                     price: priceProd,
                     img: imgProd,
                     id: idProd,
+                    quantity: quantSelect,
+                    lense: lenseSelect
                 };
 
                 const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
