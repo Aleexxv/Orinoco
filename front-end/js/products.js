@@ -12,6 +12,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             let lensesProd = insertProduct.lenses;
             let priceProd = insertProduct.price;
             let idProd = insertProduct._id;
+            let lenseSelect = insertProduct.lenses[0];
+            let quantSelect = 0;
 
             let divImg = document.createElement('div');
             divImg.id = 'divImg';
@@ -64,6 +66,7 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             let quantProd = document.getElementById('selectQant');
             quantProd.addEventListener('change', function () {
                 quantSelect = this.value;
+                console.log();
             })
 
             let price = document.createElement('h3');
@@ -80,22 +83,40 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
 
             const btnSubmitClick = document.querySelector("#button");
             btnSubmitClick.addEventListener("click", () => {
-                const productObjet = {
-                    name: nameProd,
-                    price: priceProd,
-                    img: imgProd,
-                    id: idProd,
-                    quantity: quantSelect,
-                    lense: lenseSelect
-                };
-
+                if(quantSelect === 0) {
+                    const infoQuant = document.createElement('p');
+                    infoQuant.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
+                    infoQuant.innerHTML = 'Veuillez séléctionnez une quantitée';
+                    infoQuant.className = 'primary__btn'
+                    document.getElementById('divContent').appendChild(infoQuant);
+                } else if(localStorage.getItem('validProduct', idProd) === localStorage.getItem('validProduct', idProd)) {
+                    const infoX2 = document.createElement('p');
+                    infoX2.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
+                    infoX2.innerHTML = 'Article déjà dans le panier';
+                    infoX2.className = 'primary__btn'
+                    document.getElementById('divContent').appendChild(infoX2);
+                }
+                else {
+                    const productObjet = {
+                        name: nameProd,
+                        price: priceProd,
+                        img: imgProd,
+                        id: idProd,
+                        quantity: quantSelect,
+                        lense: lenseSelect
+                }
                 const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
                 pushProduct.push(productObjet);
                 localStorage.setItem('validProduct', JSON.stringify(pushProduct));
-                console.log(pushProduct);
-                alert('article ajouté au panier');
-            })
-        }
+
+                const basketAdd = document.createElement('p');
+                basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
+                basketAdd.innerHTML = 'Article ajouté au panier';
+                basketAdd.className = 'primary__btn'
+                document.getElementById('divContent').appendChild(basketAdd);
+                };
+            });
+        };
         getCamera(dataId);
     })
     .catch(err => console.log("Tu t'es planté sur la page de l'article" + " " + err));

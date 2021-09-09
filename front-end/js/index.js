@@ -14,7 +14,7 @@ fetch(urlCamera).then(respCamera => respCamera.json()).then(data => {
                             <p>${products.description}</p>
                         </figcaption>
                         <div class="btn__index">
-                            <a href="http://127.0.0.1:5501/orinoco/front-end/products.html?id=${products._id}" class="primary__btn">Voir le produit</a>
+                            <a href="products.html?id=${products._id}" class="primary__btn">Voir le produit</a>
                         </div>
                         
                     </figure>  

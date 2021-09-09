@@ -15,48 +15,60 @@ for (let i = 0; i < selectProduct.length; i++) {
     const product = document.getElementById('product');
     const divContent = document.createElement('div');
     divContent.className = 'basketArticle';
-    const retunProduct = document.createDocumentFragment();
+    const returnProduct = document.createDocumentFragment();
 
     let img = document.createElement('img');
     let articleName = document.createElement('h2');
     let price = document.createElement('h3');
     let lense = document.createElement('p');
     let quantity = document.createElement('p');
-    let removeProduct = document.createElement('button')
+    let removeProduct = document.createElement('button');
 
     img.src = selectProduct[i].img;
     articleName.innerHTML = selectProduct[i].name;
-    price.innerHTML = `${selectProduct[i].price / 100} €`;
+    price.innerHTML = `${(selectProduct[i].price / 100) * selectProduct[i].quantity} €`;
     lense.innerHTML = `Vous avez séléctionnez la lentille : ${selectProduct[i].lense}`;
     quantity.innerHTML = `Nombres d'articles : ${selectProduct[i].quantity}`;
     removeProduct.innerHTML = '<i class="fas fa-trash-alt"></i>';
     removeProduct.className = 'trash';
 
-    retunProduct.appendChild(divContent);
+    returnProduct.appendChild(divContent);
     divContent.appendChild(img);
     divContent.appendChild(articleName);
     divContent.appendChild(lense);
     divContent.appendChild(quantity);
     divContent.appendChild(price);
     divContent.appendChild(removeProduct);
-    product.appendChild(retunProduct);
+    product.appendChild(returnProduct);
 
-    total += selectProduct[i].price / 100;
+    total += (selectProduct[i].price / 100) * selectProduct[i].quantity;
 
-    if (selectProduct ==null ){
+    if (selectProduct == null ){
         vaccumBasket = document.createElement('h2'),
         vaccumBasket.style = "display: inline-block;";
         document.body.appendChild(vaccumBasket);
         (price).appendChild(vaccumBasket)
         vaccumBasket.innerHTML = 'Le panier est vide';
-    
     }
+
+// ********************** Revoir Trash **************************
+
+
+    removeProduct.addEventListener('click', function() {
+        localStorage.removeItem('validProduct');
+    });
+
+
+
+
+
+
+
+
+
+// ********************** Revoir Trash **************************
 }
 
-
-// ********************** Revoir Trash **************************
-
-// ********************** Revoir Trash **************************
 
 
 const totalOrder = document.getElementById('totalOrder');
@@ -210,7 +222,7 @@ function sendOrder() {
             if (response.ok) {
                 localStorage.setItem("contactAfterSendingOrder", JSON.stringify(req.contact));
                 localStorage.setItem('dataId', data.orderId);
-                document.location.href="http://127.0.0.1:5501/orinoco/front-end/order-confirm.html"
+                document.location.href="order-confirm.html"
             } else {
                 console.log(response.ok);
             }
