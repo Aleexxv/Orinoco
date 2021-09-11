@@ -43,33 +43,37 @@ for (let i = 0; i < selectProduct.length; i++) {
 
     total += (selectProduct[i].price / 100) * selectProduct[i].quantity;
 
-    if (selectProduct == null ){
+    if (selectProduct == null && articleSupp == []){
         vaccumBasket = document.createElement('h2'),
         vaccumBasket.style = "display: inline-block;";
         document.body.appendChild(vaccumBasket);
         (price).appendChild(vaccumBasket)
         vaccumBasket.innerHTML = 'Le panier est vide';
-    }
-
-// ********************** Revoir Trash **************************
-
+    };
 
     removeProduct.addEventListener('click', function() {
-        localStorage.removeItem('validProduct');
+        let articleSupp = selectProduct;
+        let returnSupp = articleSupp.splice(i, 1);
+        const pushProduct = JSON.parse(localStorage.getItem('validProduct'));
+        pushProduct.push(articleSupp);
+        localStorage.setItem('validProduct', JSON.stringify(articleSupp));
+        document.location.href="basket.html"
     });
+};
 
-
-
-
-
-
-
-
-
-// ********************** Revoir Trash **************************
+if(JSON.parse(localStorage.getItem('validProduct')) == 0) {
+    localStorage.removeItem('validProduct');
+    document.location.href="basket.html";
 }
 
+const removeAll = document.getElementById('removeAll')
+removeAll.className = 'trash primary__btn';
+removeAll.innerHTML = 'Vider entièrement le panier';
 
+removeAll.addEventListener('click', function() {
+    localStorage.removeItem('validProduct');
+    document.location.href="basket.html"
+});
 
 const totalOrder = document.getElementById('totalOrder');
 totalOrder.className = 'totalOrder'

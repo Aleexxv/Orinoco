@@ -15,6 +15,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             let lenseSelect = insertProduct.lenses[0];
             let quantSelect = 0;
 
+            console.log(insertProduct._id);
+
             let divImg = document.createElement('div');
             divImg.id = 'divImg';
             divImg.className = 'section__page__articles divImg width40';
@@ -82,38 +84,41 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             document.getElementById('divContent').appendChild(button);
 
             const btnSubmitClick = document.querySelector("#button");
+
             btnSubmitClick.addEventListener("click", () => {
-                if(quantSelect === 0) {
+                const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
+                console.log(pushProduct);
+
+                for(i=0; i<pushProduct.length;i++){
+                    if(insertProduct._id == pushProduct[i].id){
+                        console.log(pushProduct[i].id);
+                        alert('produit en doubles');
+                        pushProduct.pop();
+                    }
+                } if(quantSelect === 0) {
                     const infoQuant = document.createElement('p');
                     infoQuant.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
                     infoQuant.innerHTML = 'Veuillez séléctionnez une quantitée';
                     infoQuant.className = 'primary__btn'
                     document.getElementById('divContent').appendChild(infoQuant);
-                } else if(localStorage.getItem('validProduct', idProd) === localStorage.getItem('validProduct', idProd)) {
-                    const infoX2 = document.createElement('p');
-                    infoX2.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
-                    infoX2.innerHTML = 'Article déjà dans le panier';
-                    infoX2.className = 'primary__btn'
-                    document.getElementById('divContent').appendChild(infoX2);
-                }
-                else {
-                    const productObjet = {
-                        name: nameProd,
-                        price: priceProd,
-                        img: imgProd,
-                        id: idProd,
-                        quantity: quantSelect,
-                        lense: lenseSelect
-                }
-                const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
-                pushProduct.push(productObjet);
-                localStorage.setItem('validProduct', JSON.stringify(pushProduct));
-
-                const basketAdd = document.createElement('p');
-                basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
-                basketAdd.innerHTML = 'Article ajouté au panier';
-                basketAdd.className = 'primary__btn'
-                document.getElementById('divContent').appendChild(basketAdd);
+                } else {
+                        const productObjet = {
+                            name: nameProd,
+                            price: priceProd,
+                            img: imgProd,
+                            id: idProd,
+                            quantity: quantSelect,
+                            lense: lenseSelect
+                        }
+                        
+                        pushProduct.push(productObjet);
+                        localStorage.setItem('validProduct', JSON.stringify(pushProduct));
+                    
+                    const basketAdd = document.createElement('p');
+                    basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
+                    basketAdd.innerHTML = 'Article ajouté au panier';
+                    basketAdd.className = 'primary__btn'
+                    document.getElementById('divContent').appendChild(basketAdd);
                 };
             });
         };
@@ -122,4 +127,3 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
     .catch(err => console.log("Tu t'es planté sur la page de l'article" + " " + err));
 
 
-// envoyer les données de l'article dans le localStorage en créant une paire clé valeur via submit./// vréer un tableau avec .push mettre le tabelau dans le valeur .pop derniere element.
