@@ -1,7 +1,6 @@
 let urlCamera = `http://localhost:3000/api/cameras/`;
 fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
         function getCamera(dataId) {
-            // récuperer le tableau de l'id depuis l'url
             const getUrl = window.location.search;
             const getId = new URLSearchParams(getUrl);
             const article = getId.get("id");
@@ -84,22 +83,26 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             document.getElementById('divContent').appendChild(button);
 
             const btnSubmitClick = document.querySelector("#button");
-
             btnSubmitClick.addEventListener("click", () => {
                 const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
-                console.log(pushProduct);
 
-                for(i=0; i<pushProduct.length;i++){
+                for(let i = 0; i < pushProduct.length; i++){
                     if(insertProduct._id == pushProduct[i].id){
                         console.log(pushProduct[i].id);
-                        alert('produit en doubles');
+                        const btn = document.createElement('p');
+                        btn.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
+                        btn.innerHTML = 'produit mise à jour !';
+                        btn.className = 'primary__btn'
+                        document.getElementById('divContent').appendChild(btn);
                         pushProduct.pop();
                     }
-                } if(quantSelect === 0) {
+                } 
+                
+                if(quantSelect === 0) {
                     const infoQuant = document.createElement('p');
                     infoQuant.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 2.5rem;';
                     infoQuant.innerHTML = 'Veuillez séléctionnez une quantitée';
-                    infoQuant.className = 'primary__btn'
+                    infoQuant.className = 'primary__btn';
                     document.getElementById('divContent').appendChild(infoQuant);
                 } else {
                         const productObjet = {
@@ -110,10 +113,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
                             quantity: quantSelect,
                             lense: lenseSelect
                         }
-                        
-                        pushProduct.push(productObjet);
-                        localStorage.setItem('validProduct', JSON.stringify(pushProduct));
-                    
+                    pushProduct.push(productObjet);
+                    localStorage.setItem('validProduct', JSON.stringify(pushProduct));
                     const basketAdd = document.createElement('p');
                     basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
                     basketAdd.innerHTML = 'Article ajouté au panier';
