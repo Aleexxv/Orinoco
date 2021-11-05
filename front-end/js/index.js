@@ -1,32 +1,32 @@
 let urlCamera = `http://localhost:3000/api/cameras/`;
-fetch(urlCamera).then(respCamera => respCamera.json()).then(data => {
-        function newProducts(data) {
-
+    fetch(urlCamera).then(respCamera => respCamera.json()).then(data => {
+            function newProducts(data) {
             // Boucle for pour l'itérations des éléments 
             for (let i = 0; i < data.length; i++) {
-                let importArticles = "";
+                let importArticles = '';
                 data.forEach(products => {
                     importArticles += `
                     <figure>
-                        <img src="${products.imageUrl}" alt="">
-                        <figcaption class="">
+                        <img src='${products.imageUrl}' alt='${products.alt}'>
+                        <figcaption class=''>
                             <h2>${products.name}</h2>
                             <p>${products.description}</p>
                         </figcaption>
-                        <div class="btn__index">
-                            <a href="products.html?id=${products._id}" class="primary__btn">Voir le produit</a>
+                        <div class='btn__index'>
+                            <a href='products.html?id=${products._id}' class='primary__btn'>Voir le produit</a>
                         </div>
-                        
-                    </figure>  
+                    </figure>
                     `;
                 })
-                let test = document.querySelector('.primary__btn');
-                console.log(test)
-                    // Placement des articles dans le HTML
+                // Placement des articles dans le HTML
                 let positionArticles = document.querySelector('.section__full__articles');
                 positionArticles.innerHTML = importArticles;
             }
         }
         newProducts(data);
     })
-    .catch(err => console.log("Tu t'es planté sur la page des articles" + " " + err));
+    .catch(err => console.log(`Tu t'es planté sur la page des articles` + ' ' + err));
+
+    // module.exports = {
+    //     fetch,
+    // }

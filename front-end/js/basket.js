@@ -1,15 +1,16 @@
 let selectProduct = JSON.parse(localStorage.getItem('validProduct'));
 let total = 0;
+const urlToArticles = 'products.html?id='
 
 // **********************if else panier vide**************************
 if (selectProduct == null ){
     let vaccumBasket = document.createElement('h2');
-    vaccumBasket.style = "display: inline-block;";
+    vaccumBasket.style = 'display: inline-block;';
     document.body.appendChild(vaccumBasket);
     (product).appendChild(vaccumBasket)
     vaccumBasket.innerHTML = 'Le panier est vide';
 }
-// **********************if else panier vide**************************
+
 
 for (let i = 0; i < selectProduct.length; i++) {
     const product = document.getElementById('product');
@@ -21,15 +22,92 @@ for (let i = 0; i < selectProduct.length; i++) {
     let articleName = document.createElement('h2');
     let price = document.createElement('h3');
     let lense = document.createElement('p');
-    let quantity = document.createElement('p');
     let removeProduct = document.createElement('button');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    let quantity = document.createElement('input');
+    quantity.id = 'input';
+    quantity.value = selectProduct[i].quantity;
+
+    quantity.addEventListener('change', function(){
+        quantity = this.innerHTML;
+        console.log(quantity);
+    });
+
+    let modifQuantityBtn = document.createElement('button');
+    modifQuantityBtn.type = 'modifQuantityBtn';
+    modifQuantityBtn.innerHTML = 'Modifier';
+    modifQuantityBtn.className = 'primary__btn';
+
+    modifQuantityBtn.addEventListener('click', function() {
+        let modifyQUantity = selectProduct;
+        modifyQUantity.push(selectProduct[i]);
+        modifyQUantity.splice(i, 1);
+        localStorage.setItem('validProduct', JSON.stringify(modifyQUantity));
+        window.location.reload();
+    });
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    removeProduct.addEventListener('click', function() {
+        let articleSupp = selectProduct;
+        articleSupp.splice(i, 1);
+        localStorage.setItem('validProduct', JSON.stringify(articleSupp));
+        document.location.reload();
+    });
+
     img.src = selectProduct[i].img;
-    articleName.innerHTML = selectProduct[i].name;
+    articleName.innerHTML = `<a href='${urlToArticles}${selectProduct[i].id}'>${selectProduct[i].name}</a>`;
     price.innerHTML = `${(selectProduct[i].price / 100) * selectProduct[i].quantity} €`;
     lense.innerHTML = `Vous avez séléctionnez la lentille : ${selectProduct[i].lense}`;
-    quantity.innerHTML = `Nombres d'articles : ${selectProduct[i].quantity}`;
-    removeProduct.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    removeProduct.innerHTML = `<i class='fas fa-trash-alt'></i>`;
     removeProduct.className = 'trash';
 
     returnProduct.appendChild(divContent);
@@ -37,6 +115,7 @@ for (let i = 0; i < selectProduct.length; i++) {
     divContent.appendChild(articleName);
     divContent.appendChild(lense);
     divContent.appendChild(quantity);
+    divContent.appendChild(modifQuantityBtn);
     divContent.appendChild(price);
     divContent.appendChild(removeProduct);
     product.appendChild(returnProduct);
@@ -45,25 +124,34 @@ for (let i = 0; i < selectProduct.length; i++) {
 
     if (selectProduct == null && articleSupp == []){
         vaccumBasket = document.createElement('h2'),
-        vaccumBasket.style = "display: inline-block;";
+        vaccumBasket.style = 'display: inline-block;';
         document.body.appendChild(vaccumBasket);
         (price).appendChild(vaccumBasket)
         vaccumBasket.innerHTML = 'Le panier est vide';
     };
 
-    removeProduct.addEventListener('click', function() {
-        let articleSupp = selectProduct;
-        let returnSupp = articleSupp.splice(i, 1);
-        const pushProduct = JSON.parse(localStorage.getItem('validProduct'));
-        pushProduct.push(articleSupp);
-        localStorage.setItem('validProduct', JSON.stringify(articleSupp));
-        document.location.href="basket.html"
-    });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if(JSON.parse(localStorage.getItem('validProduct')) == 0) {
     localStorage.removeItem('validProduct');
-    document.location.href="basket.html";
+    document.location.href='basket.html';
 }
 
 const removeAll = document.getElementById('removeAll')
@@ -72,7 +160,7 @@ removeAll.innerHTML = 'Vider entièrement le panier';
 
 removeAll.addEventListener('click', function() {
     localStorage.removeItem('validProduct');
-    document.location.href="basket.html"
+    document.location.href='basket.html'
 });
 
 const totalOrder = document.getElementById('totalOrder');
@@ -180,7 +268,6 @@ const validCity = function(city) {
     if (formRegExp.test(city.value)) {;
         smallCity.innerHTML = 'Ville valide';
         smallCity.style.color = 'green';
-        console.log('ca passe');
         return true;
     } else {
         smallCity.innerHTML = 'Ville non valide, seulement les lettres sont autorisées';
@@ -211,10 +298,9 @@ const getProductsId = () => {
 function sendOrder() {
     const creatOrder = () => {
         const req = {
-            "contact": getContactValue(),
-            "products": getProductsId(),
+            'contact': getContactValue(),
+            'products': getProductsId(),
         }
-        console.log(req)
         fetch('http://localhost:3000/api/cameras/order', {
             method: 'POST',
             body: JSON.stringify(req),
@@ -224,9 +310,8 @@ function sendOrder() {
         }).then(async(response) => {
             const data = await response.json()
             if (response.ok) {
-                localStorage.setItem("contactAfterSendingOrder", JSON.stringify(req.contact));
-                localStorage.setItem('dataId', data.orderId);
-                document.location.href="order-confirm.html"
+                sessionStorage.setItem('contactAfterSendingOrder', JSON.stringify(req.contact));
+                document.location.href = `order-confirm.html?orderId=${data.orderId}`;
             } else {
                 console.log(response.ok);
             }
@@ -234,3 +319,7 @@ function sendOrder() {
     };
     creatOrder();
 }
+
+export default {
+    validFirstName
+};
