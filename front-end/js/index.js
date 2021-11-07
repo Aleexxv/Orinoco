@@ -27,6 +27,3 @@ let urlCamera = `http://localhost:3000/api/cameras/`;
     })
     .catch(err => console.log(`Tu t'es planté sur la page des articles` + ' ' + err));
 
-    // module.exports = {
-    //     fetch,
-    // }

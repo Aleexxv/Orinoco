@@ -4,97 +4,58 @@ const urlToArticles = 'products.html?id='
 
 // **********************if else panier vide**************************
 if (selectProduct == null ){
-    let vaccumBasket = document.createElement('h2');
+    const vaccumBasket = document.createElement('h2');
     vaccumBasket.style = 'display: inline-block;';
     document.body.appendChild(vaccumBasket);
     (product).appendChild(vaccumBasket)
     vaccumBasket.innerHTML = 'Le panier est vide';
 }
 
-
 for (let i = 0; i < selectProduct.length; i++) {
     const product = document.getElementById('product');
     const divContent = document.createElement('div');
     divContent.className = 'basketArticle';
+
     const returnProduct = document.createDocumentFragment();
+    const img = document.createElement('img');
+    const articleName = document.createElement('h2');
+    const price = document.createElement('h3');
+    const lense = document.createElement('p');
 
-    let img = document.createElement('img');
-    let articleName = document.createElement('h2');
-    let price = document.createElement('h3');
-    let lense = document.createElement('p');
-    let removeProduct = document.createElement('button');
+    const msgQuantityMax = document.createElement('p');
+    msgQuantityMax.innerHTML = '5 articles max';
+    msgQuantityMax.style.paddingLeft = '1rem';
 
+    const divQuantity = document.createElement('div');
+    divQuantity.className = 'divQuantity';
+    divQuantity.style.alignItems = 'center';
+    divQuantity.style.display = 'flex';
+    divQuantity.style.justifyContent = 'space-between';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    const divQuantitybModify = document.createElement('div');
+    divQuantitybModify.style.alignItems = 'center';
+    divQuantitybModify.style.display = 'flex';
 
     let quantity = document.createElement('input');
-    quantity.id = 'input';
     quantity.value = selectProduct[i].quantity;
-
+    quantity.style.width = '1rem';
+    quantity.style.padding = '.5rem';
+    
     quantity.addEventListener('change', function(){
-        quantity = this.innerHTML;
-        console.log(quantity);
-    });
-
-    let modifQuantityBtn = document.createElement('button');
-    modifQuantityBtn.type = 'modifQuantityBtn';
-    modifQuantityBtn.innerHTML = 'Modifier';
-    modifQuantityBtn.className = 'primary__btn';
-
-    modifQuantityBtn.addEventListener('click', function() {
-        let modifyQUantity = selectProduct;
-        modifyQUantity.push(selectProduct[i]);
-        modifyQUantity.splice(i, 1);
-        localStorage.setItem('validProduct', JSON.stringify(modifyQUantity));
-        window.location.reload();
+        quantity = this.value;
+        selectProduct[i].quantity = quantity;
     });
     
+    const modifQuantityBtn = document.createElement('button');
+    modifQuantityBtn.innerHTML = 'Modifier';
+    modifQuantityBtn.className = 'primary__btn';
+    
+    modifQuantityBtn.addEventListener('click', function() {
+        localStorage.setItem('validProduct', JSON.stringify(selectProduct));
+        window.location.reload();
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    const removeProduct = document.createElement('button');
 
     removeProduct.addEventListener('click', function() {
         let articleSupp = selectProduct;
@@ -108,14 +69,17 @@ for (let i = 0; i < selectProduct.length; i++) {
     price.innerHTML = `${(selectProduct[i].price / 100) * selectProduct[i].quantity} €`;
     lense.innerHTML = `Vous avez séléctionnez la lentille : ${selectProduct[i].lense}`;
     removeProduct.innerHTML = `<i class='fas fa-trash-alt'></i>`;
-    removeProduct.className = 'trash';
+    removeProduct.className = 'trashOne';
 
     returnProduct.appendChild(divContent);
     divContent.appendChild(img);
     divContent.appendChild(articleName);
     divContent.appendChild(lense);
-    divContent.appendChild(quantity);
-    divContent.appendChild(modifQuantityBtn);
+    divContent.appendChild(divQuantity);
+    divQuantity.appendChild(divQuantitybModify);
+    divQuantitybModify.appendChild(quantity);
+    divQuantitybModify.appendChild(msgQuantityMax);
+    divQuantity.appendChild(modifQuantityBtn);
     divContent.appendChild(price);
     divContent.appendChild(removeProduct);
     product.appendChild(returnProduct);
@@ -129,25 +93,7 @@ for (let i = 0; i < selectProduct.length; i++) {
         (price).appendChild(vaccumBasket)
         vaccumBasket.innerHTML = 'Le panier est vide';
     };
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if(JSON.parse(localStorage.getItem('validProduct')) == 0) {
     localStorage.removeItem('validProduct');
@@ -155,7 +101,7 @@ if(JSON.parse(localStorage.getItem('validProduct')) == 0) {
 }
 
 const removeAll = document.getElementById('removeAll')
-removeAll.className = 'trash primary__btn';
+removeAll.className = 'primary__btn';
 removeAll.innerHTML = 'Vider entièrement le panier';
 
 removeAll.addEventListener('click', function() {
@@ -313,13 +259,8 @@ function sendOrder() {
                 sessionStorage.setItem('contactAfterSendingOrder', JSON.stringify(req.contact));
                 document.location.href = `order-confirm.html?orderId=${data.orderId}`;
             } else {
-                console.log(response.ok);
             }
         })
     };
     creatOrder();
 }
-
-export default {
-    validFirstName
-};

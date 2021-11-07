@@ -4,6 +4,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             const getUrl = window.location.search;
             const getId = new URLSearchParams(getUrl);
             const article = getId.get('id');
+
+            console.log(article);
             const insertProduct = dataId.find((objectArray) => objectArray._id === article);
             let imgProd = insertProduct.imageUrl;
             let nameProd = insertProduct.name;
@@ -38,22 +40,6 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             desc.innerHTML = descProd;
             document.getElementById('divContent').appendChild(desc);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             let selectLense = document.createElement('select');
             selectLense.id = 'selectLense';
             for (let i = 0; i < lensesProd.length; i++) {
@@ -67,6 +53,7 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             let lenseProd = document.querySelector('select');
             lenseProd.addEventListener('change', function () {
                 lenseSelect = this.value;
+                console.log(lenseSelect);
             })
 
             let selectQant = document.createElement('select');
@@ -78,26 +65,6 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
                 option.innerHTML = [i];
                 document.getElementById('divContent').appendChild(selectQant).appendChild(option);
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             let quantSelect = '1';
             let quantProd = document.getElementById('selectQant');
@@ -117,29 +84,25 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             button.type = 'submit';
             document.getElementById('divContent').appendChild(button);
 
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
             const btnSubmitClick = document.querySelector('#button');
             btnSubmitClick.addEventListener('click', () => {
             const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
 
             for(let i = 0; i < pushProduct.length; i++){
-                if(insertProduct._id == pushProduct[i].id && quantSelect == pushProduct[i].quantity){
+                if(nameProd == pushProduct[i].name && lenseSelect == pushProduct[i].lense && quantSelect == pushProduct[i].quantity){
                     alert('Ce produit est déjà dans le panier');
                     return;
+                } else if (nameProd == pushProduct[i].name && lenseSelect == pushProduct[i].lense && quantSelect !== pushProduct[i].quantity) {
+                    pushProduct[i].quantity = quantSelect;
+                    localStorage.setItem('validProduct', JSON.stringify(pushProduct));
+                    pushProduct.splice(i, 1);
+                    const basketAdd = document.createElement('p');
+                    basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
+                    basketAdd.innerHTML = 'Quantité mise à jour';
+                    basketAdd.className = 'primary__btn'
+                    document.getElementById('divContent').appendChild(basketAdd);
+                } else {
+                    pushProduct.push();
                 }
             }
 
@@ -149,31 +112,20 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
                 img: imgProd,
                 id: idProd,
                 quantity: quantSelect,
-                lense: lenseSelect
+                lense: lenseSelect,
             }
             pushProduct.push(productObjet);
             localStorage.setItem('validProduct', JSON.stringify(pushProduct));
+            const basketAdd = document.createElement('p');
+            basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
+            basketAdd.innerHTML = 'Article ajouté au panier';
+            basketAdd.className = 'primary__btn'
+            document.getElementById('divContent').appendChild(basketAdd);
             });
         };
         getCamera(dataId);
     })
     .catch(err => console.log(`Tu t'es planté sur la page de l'article` + ' ' + err));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
