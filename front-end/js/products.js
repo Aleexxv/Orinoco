@@ -87,22 +87,27 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             const btnSubmitClick = document.querySelector('#button');
             btnSubmitClick.addEventListener('click', () => {
             const pushProduct = JSON.parse(localStorage.getItem('validProduct')) || [];
+            const basketAdd = document.createElement('p');
+            basketAdd.className = 'primary__btn'
+            basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
+            basketAdd.innerHTML = 'Article ajouté au panier';
+            setTimeout(function(){
+                basketAdd.style.display = 'none';
+            }, 1000);
+            document.getElementById('divContent').appendChild(basketAdd);
 
             for(let i = 0; i < pushProduct.length; i++){
                 if(nameProd == pushProduct[i].name && lenseSelect == pushProduct[i].lense && quantSelect == pushProduct[i].quantity){
-                    alert('Ce produit est déjà dans le panier');
-                    return;
-                } else if (nameProd == pushProduct[i].name && lenseSelect == pushProduct[i].lense && quantSelect !== pushProduct[i].quantity) {
+                    basketAdd.innerHTML = 'Produit déjà dans le panier';
+                    pushProduct.pop();
+                } if (nameProd == pushProduct[i].name && lenseSelect == pushProduct[i].lense && quantSelect !== pushProduct[i].quantity) {
                     pushProduct[i].quantity = quantSelect;
                     localStorage.setItem('validProduct', JSON.stringify(pushProduct));
                     pushProduct.splice(i, 1);
-                    const basketAdd = document.createElement('p');
-                    basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
                     basketAdd.innerHTML = 'Quantité mise à jour';
-                    basketAdd.className = 'primary__btn'
-                    document.getElementById('divContent').appendChild(basketAdd);
                 } else {
                     pushProduct.push();
+                    
                 }
             }
 
@@ -116,11 +121,8 @@ fetch(urlCamera).then(respProduct => respProduct.json()).then(dataId => {
             }
             pushProduct.push(productObjet);
             localStorage.setItem('validProduct', JSON.stringify(pushProduct));
-            const basketAdd = document.createElement('p');
-            basketAdd.style = 'background: linear-gradient(110deg, rgba(212,129,57,1) 0%, rgba(143,91,254,1) 100%); color: white; margin-top: 1.5rem;';
-            basketAdd.innerHTML = 'Article ajouté au panier';
-            basketAdd.className = 'primary__btn'
-            document.getElementById('divContent').appendChild(basketAdd);
+            
+            
             });
         };
         getCamera(dataId);
