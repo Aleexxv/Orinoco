@@ -131,10 +131,6 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-#removeAll{
-  margin-bottom: 3rem;
-}
-
 img {
   width: 100%;
   height: 100%;
@@ -145,29 +141,7 @@ small {
   margin-bottom: 1rem;
 }
 
-select {
-  width: 60%;
-  border: none;
-  background: #F3E9F1;
-  border-radius: .5rem;
-  padding: 0.5rem;
-  margin: .5rem;
-}
-
-input{
-  width: 100%;
-  border: none;
-  background: #F3E9F1;
-  border-radius: .5rem;
-  padding: .8rem !important;
-}
-
-input.primary__btn {
-  width: 100%;
-}
-
-
-h1{
+h1 {
   font-family: "Finger Paint", cursive;
 }
 
@@ -180,6 +154,27 @@ i {
   font-size: 1.5rem;
 }
 
+select {
+  width: 60%;
+  border: none;
+  background: #F3E9F1;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+input {
+  width: 100%;
+  border: none;
+  background: #F3E9F1;
+  border-radius: 0.5rem;
+  padding: 0.8rem !important;
+}
+
+input.primary__btn {
+  width: 100%;
+}
+
 figcaption {
   padding: 1rem;
   position: relative;
@@ -188,13 +183,16 @@ figcaption {
 ul {
   padding: 0 1rem;
 }
-
 ul li {
   list-style: none;
   padding: 0 1rem;
 }
 
-
+input {
+  width: 95%;
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+}
 
 button {
   border: 0;
@@ -213,6 +211,10 @@ button {
 .logo img {
   height: 100px;
   width: 265px;
+}
+
+.basketArticle {
+  margin: 3rem 0;
 }
 
 .divContent {
@@ -337,12 +339,11 @@ button {
   display: inline-block;
 }
 
-
-.trashOne{
-  background: white;
+.trashOne {
   position: absolute;
-  right: 0;
-  bottom: 0rem;
+  right: 1rem;
+  bottom: 0;
+  background: white;
 }
 
 .section__articles__comm {

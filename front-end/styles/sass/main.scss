@@ -23,9 +23,7 @@ small {
     margin-bottom: 1rem;
 }
 
-h1,
-h2,
-h3 {
+h1 {
     font-family: 'Finger Paint', cursive;
 }
 
@@ -38,6 +36,27 @@ i {
     font-size: 1.5rem;
 }
 
+
+select {
+    width: 60%;
+    border: none;
+    background: #F3E9F1;
+    border-radius: .5rem;
+    padding: 0.5rem;
+    margin: .5rem;
+}
+
+input{
+    width: 100%;
+    border: none;
+    background: #F3E9F1;
+    border-radius: .5rem;
+    padding: .8rem !important;
+}
+
+input.primary__btn {
+    width: 100%;
+}
 figcaption {
     padding: 1rem;
     position: relative;
@@ -92,9 +111,9 @@ button {
     @extend %flex-between;
 }
 
-// .divImg {
-//     width: 70%;
-// }
+.basketArticle {
+    margin: 3rem 0;
+}
 
 .divContent {
     text-align: center;
@@ -199,7 +218,6 @@ padding: 2rem;
     position: relative;
     img{
         height: 10rem;
-
     }
 }
 
@@ -208,6 +226,13 @@ padding: 2rem;
     right: 1rem;
     bottom: .5rem;
     display: inline-block;
+}
+
+.trashOne{
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
+    background: white;
 }
 
 .section__articles__comm {
