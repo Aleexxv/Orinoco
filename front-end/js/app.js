@@ -1,8 +1,8 @@
-const sentance = 'hello world';
+// const sentance = 'hello world'
 
-export default {
-sentance
-};
+// export default {
+//     sentance,
+// }
 
 // module.exports = {
 //     sentance

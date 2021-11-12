@@ -22,8 +22,14 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
         "babel-preset-jest": "^26.6.2",
+        "eslint": "^8.2.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-prettier": "^4.0.0",
         "jest": "^27.3.1",
-        "jest-cli": "^26.6.3"
+        "jest-cli": "^26.6.3",
+        "prettier": "^2.4.1"
     },
     "dependencies": {
         "babel-cli": "^6.26.0",
