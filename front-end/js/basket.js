@@ -4,7 +4,7 @@ const selectProduct = JSON.parse(localStorage.getItem('validProduct'))
 // Création de la variable "total"
 let total = 0
 
-// SI le panier est vide 
+// Si le panier est vide 
 if (selectProduct == null) {
     const vaccumBasket = document.getElementById('totalOrder')
     vaccumBasket.innerHTML = 'Le panier est vide'
@@ -14,7 +14,7 @@ if (selectProduct == null) {
 // Boucle pour afficher les produits dans le panier
 for (let i = 0; i < selectProduct.length; i++) {
 
-    // Céation des élélments HTML qui vont recevoir les articles
+    // Création des élélments HTML qui vont recevoir les articles
     const product = document.getElementById('product')
     const divContent = document.createElement('div')
     divContent.className = 'basketArticle'
@@ -22,7 +22,7 @@ for (let i = 0; i < selectProduct.length; i++) {
     // Création du documentFrangment pour insérer les éléments HTML
     const returnProduct = document.createDocumentFragment()
 
-    //Creation des élément qui vont contenir les données du produit
+    //Création des éléments qui vont contenir les données du produit
     const img = document.createElement('img')
     const articleName = document.createElement('h2')
     const price = document.createElement('h3')
