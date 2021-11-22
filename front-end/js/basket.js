@@ -29,8 +29,8 @@ for (let i = 0; i < selectProduct.length; i++) {
     const lense = document.createElement('p')
 
     const msgQuantityMax = document.createElement('p')
-    msgQuantityMax.innerHTML = '5 articles max'
-    msgQuantityMax.style.paddingLeft = '1rem'
+    msgQuantityMax.innerHTML = 'Vous souhaitez modifier la quantité ?'
+
 
     const divQuantity = document.createElement('div')
     divQuantity.className = 'divQuantity'
@@ -46,6 +46,9 @@ for (let i = 0; i < selectProduct.length; i++) {
     quantity.value = selectProduct[i].quantity
     quantity.style.width = '1rem'
     quantity.style.padding = '.5rem'
+    quantity.style.marginLeft= '2rem'
+    quantity.style.marginTop= '0'
+    
 
         // Création de l'écouteur d'évenement pour la modification de la quantité
         quantity.addEventListener('change', function () {
@@ -92,8 +95,8 @@ for (let i = 0; i < selectProduct.length; i++) {
     divContent.appendChild(lense)
     divContent.appendChild(divQuantity)
     divQuantity.appendChild(divQuantitybModify)
-    divQuantitybModify.appendChild(quantity)
     divQuantitybModify.appendChild(msgQuantityMax)
+    divQuantitybModify.appendChild(quantity)
     divQuantity.appendChild(modifQuantityBtn)
     divContent.appendChild(price)
     divContent.appendChild(removeProduct)
@@ -261,14 +264,18 @@ const validCity = function (city) {
 
 // Création de la variable qui récupère les informations du formulaire
 const getContactValue = () => {
-    const contact = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        address: document.getElementById('adress').value,
-        city: document.getElementById('city').value,
-    }
+    for(let i = 0; i < selectProduct.length; i++) {
+    let img = selectProduct[i].img
+        const contact = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            address: document.getElementById('adress').value,
+            city: document.getElementById('city').value,
+            img: img
+        }
     return contact
+    }
 }
 
 // Création de la variable qui envoie les informations des produits
@@ -302,6 +309,7 @@ function sendOrder() {
                     JSON.stringify(req.contact)
                 )
                 document.location.href = `order-confirm.html?orderId=${data.orderId}`
+                localStorage.clear()
             }
         })
     }

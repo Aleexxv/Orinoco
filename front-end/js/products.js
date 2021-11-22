@@ -78,7 +78,7 @@ fetch(urlCamera)
             }
 
             //Récuperation des données du sélécteur de lentilles
-            const lenseSelect = insertProduct.lenses[0]
+            let lenseSelect = insertProduct.lenses[0]
             let lenseProd = document.querySelector('select')
                 lenseProd.addEventListener('change', function () {
                     lenseSelect = this.value
@@ -88,7 +88,7 @@ fetch(urlCamera)
             // Création de la div qui contiendra la quantité du produit
             const selectQant = document.createElement('select')
             selectQant.id = 'selectQant'
-            for (let i = 1; i < 6; i++) {
+            for (let i = 1; i < 16; i++) {
                 const option = document.createElement('option')
                 option.id = 'option'
                 option.value = [i]
@@ -100,11 +100,12 @@ fetch(urlCamera)
             }
 
             // Récuperation des données du sélécteur de quantité
-            let quantSelect = '1'
+            let quantSelect = 1
             const quantProd = document.getElementById('selectQant')
                 quantProd.addEventListener('change', function () {
-                    quantSelect = this.value
+                    quantSelect = Number(this.value)
                 })
+                console.log(quantSelect);
 
             // Création de la div qui contiendra le prix du produit
             const price = document.createElement('h3')
@@ -142,29 +143,27 @@ fetch(urlCamera)
 
                 
                 for (let i = 0; i < pushProduct.length; i++) {
-                    // Boucle qui vérifie si le produit est déjà dans le panier et si oui, il ne sera pas ajouté
-                    if (
-                        nameProd == pushProduct[i].name &&
-                        lenseSelect == pushProduct[i].lense &&
-                        quantSelect == pushProduct[i].quantity
-                    ) {
-                        basketAdd.innerHTML = 'Produit déjà dans le panier'
-                        pushProduct.pop()
-                    }
+                    console.log(lenseSelect);
+                    console.log(pushProduct[i].lense);
                     // Boucle qui vérifie si la quantité est pas déjà séléctionnée et si oui, elle sera mise à jour
-                    if (
-                        nameProd == pushProduct[i].name &&
-                        lenseSelect == pushProduct[i].lense &&
-                        quantSelect !== pushProduct[i].quantity
-                    ) {
-                        pushProduct[i].quantity = quantSelect
+                    if (lenseSelect == pushProduct[i].lense) {
+                        let test = pushProduct[i].quantity
+                        let test1 = quantSelect
+                        let test2 = test + test1
+                        quantSelect = test2
                         localStorage.setItem(
                             'validProduct',
                             JSON.stringify(pushProduct)
                         )
                         pushProduct.splice(i, 1)
                         basketAdd.innerHTML = 'Quantité mise à jour'
-                    } else {
+                    }
+
+                    else if (lenseSelect !== pushProduct[i].lense) {
+                        quantSelect = 1
+                    }
+
+                    else {
                         pushProduct.push()
                     }
                 }
@@ -178,7 +177,7 @@ fetch(urlCamera)
                     quantity: quantSelect,
                     lense: lenseSelect,
                 }
-
+                console.log(productObjet);
                 // Envoie des données du produit au panier
                 pushProduct.push(productObjet)
                 localStorage.setItem(
